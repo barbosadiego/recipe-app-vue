@@ -2,9 +2,9 @@
   <div id="app">
 
     <h1>Receitas</h1>
-    <button>Adicionar receita</button>
+    <button @click="isActive = !isActive">Adicionar receita</button>
 
-    <section class="add-recipes">
+    <section class="add-recipes" v-show="isActive">
 
       <h2>Adicionar nova receita</h2>
 
@@ -37,6 +37,20 @@
 
   </div>
 </template>
+
+<script>
+export default {
+  name: 'TheApp',
+  data(){
+    return {
+      isActive: false,
+    }
+  },
+  methods:{
+    
+  }
+}
+</script>
 
 <style lang="scss">
 
