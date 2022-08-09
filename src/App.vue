@@ -2,7 +2,7 @@
   <div id="app">
 
     <h1>Receitas</h1>
-    <button @click="isActive = !isActive">Adicionar receita</button>
+    <button @click="isActive = !isActive" class="add-btn btn">Adicionar receita</button>
 
     <section class="add-recipes" v-show="isActive">
 
@@ -14,21 +14,21 @@
         <input type="text" name="title" id="title">
 
         <label for="desc">Descrição</label>
-        <textarea name="desc" id="desc" cols="30" rows="10"></textarea>
+        <textarea name="desc" id="desc" cols="30" rows="5"></textarea>
 
         <label for="ingredients">Ingredientes</label>
         <input type="text" name="ingredients" id="ingredients">
 
-        <button @click.prevent="">Adicionar Ingrediente</button>
+        <button class="btn" @click.prevent="">Adicionar Ingrediente</button>
 
         <label for="method">Instruções</label>
-        <textarea name="method" id="method" cols="30" rows="10"></textarea>
+        <textarea name="method" id="method" cols="30" rows="5"></textarea>
 
-        <button @click.prevent="">Adicionar instrução</button>
+        <button class="btn" @click.prevent="">Adicionar instrução</button>
 
         <div class="buttons">
-          <button @click.prevent="">Adicionar Receita</button>
-          <button @click.prevent="">Fechar</button>
+          <button class="btn" @click.prevent="">Adicionar Receita</button>
+          <button class="btn" @click.prevent="">Fechar</button>
         </div>
 
       </form>
@@ -43,7 +43,7 @@ export default {
   name: 'TheApp',
   data(){
     return {
-      isActive: false,
+      isActive: true,
     }
   },
   methods:{
@@ -54,4 +54,113 @@ export default {
 
 <style lang="scss">
 
+*{
+  box-sizing: border-box;
+}
+
+body, h1, h2, p{
+  margin: 0px;
+  padding: 0px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.btn{
+  background-color: #84f;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 3px;
+  color: #fff;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  cursor: pointer;
+  text-transform: capitalize;
+  transition: .1s;
+
+  &:active{
+    box-shadow: 0 0 0 3px rgba(137, 68, 255, 0.5);
+  }
+
+  &:hover{
+    background: lighten(#84f, 5%);
+  }
+}
+
+#app{
+  background-color: #f1f1f1;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+
+  h1{
+    padding-top: 2rem;
+  }
+
+  .add-btn{
+    margin: 1rem 0;
+  }
+
+  .add-recipes{
+    display: grid;
+    justify-content: stretch;
+    width: 600px;
+    background-color: #fff;
+    padding: 1rem;
+    box-shadow: 0 0 0 1000px #00000080;
+    position: absolute;
+    top: 1rem;
+    bottom: 0;
+    z-index: 10;
+    border-radius: 3px;
+    margin: 1rem;
+    @media (max-width:768px) {
+      max-width: 90%;
+    }
+
+    h2{
+      margin: 1rem 0;
+    }
+
+    .form{
+      display: grid;
+      justify-items: start;
+      gap: 1rem;
+
+      input, 
+      label,
+      textarea{
+        width: 100%;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        outline: none;
+        border: none;
+      }
+
+      input,
+      textarea{
+        padding: 10px;
+        border: 1px solid #84f;
+        border-radius: 3px;
+      }
+
+      textarea{
+        resize: none;
+      }
+
+      hr{
+        background-color: #84f;
+      }
+
+      .buttons{
+        width: 100%;
+        padding-top: 1rem;
+        display: flex;
+        gap: 1rem;
+        border-top: 1px solid #84f;
+      }
+    }
+  }
+}
 </style>
