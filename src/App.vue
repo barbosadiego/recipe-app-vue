@@ -28,7 +28,7 @@
 
         <div class="buttons">
           <button class="btn" @click.prevent="">Adicionar Receita</button>
-          <button class="btn" @click.prevent="">Fechar</button>
+          <button class="btn" @click.prevent="isActive = false">Fechar</button>
         </div>
 
       </form>
@@ -43,7 +43,7 @@ export default {
   name: 'TheApp',
   data(){
     return {
-      isActive: true,
+      isActive: false,
     }
   },
   methods:{
@@ -64,6 +64,10 @@ body, h1, h2, p{
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+body{
+  min-height: 100vh;
+}
+
 .btn{
   background-color: #84f;
   padding: 10px 15px;
@@ -78,11 +82,17 @@ body, h1, h2, p{
   transition: .1s;
 
   &:active{
-    box-shadow: 0 0 0 3px rgba(137, 68, 255, 0.5);
+    background: lighten(#84f, 5%);
+    @media (max-width:768px){
+      box-shadow: unset;
+    }
   }
 
   &:hover{
-    background: lighten(#84f, 5%);
+    box-shadow: 0 0 0 3px rgba(137, 68, 255, 0.5);
+    @media (max-width:768px){
+      box-shadow: unset;
+    }
   }
 }
 
@@ -93,7 +103,6 @@ body, h1, h2, p{
   display: flex;
   flex-direction: column;
   align-items: center;
-  position: relative;
 
   h1{
     padding-top: 2rem;
@@ -104,15 +113,13 @@ body, h1, h2, p{
   }
 
   .add-recipes{
-    display: grid;
-    justify-content: stretch;
+    display: flex;
+    flex-direction: column;
     width: 600px;
     background-color: #fff;
     padding: 1rem;
     box-shadow: 0 0 0 1000px #00000080;
     position: absolute;
-    top: 1rem;
-    bottom: 0;
     z-index: 10;
     border-radius: 3px;
     margin: 1rem;
@@ -122,6 +129,7 @@ body, h1, h2, p{
 
     h2{
       margin: 1rem 0;
+      padding: 0;
     }
 
     .form{
@@ -136,6 +144,10 @@ body, h1, h2, p{
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         outline: none;
         border: none;
+      }
+
+      label{
+        font-size: 1.1rem;
       }
 
       input,
