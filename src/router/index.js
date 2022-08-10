@@ -1,13 +1,21 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
+import RecipePage from '@/views/RecipePage.vue'
+
 Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
-    name: 'home',
+    path: '/recipe',
+    name: 'recipe',
   },
+  {
+    path: '/recipe/:slug',
+    name: 'recipe-page',
+    component: RecipePage,
+  },
+  
 ]
 
 const router = new VueRouter({

@@ -7,7 +7,7 @@ export default new Vuex.Store({
   state: {
     recipe:[
       {
-        title: 'Pé de Moleque',
+        title: 'Pe de Moleque',
         slug: 'pe-de-moleque',
         description: 'Doce tradicional nordestino. O nome da iguaria feita de rapadura e amendoim surgiu no Brasil colonial, quando meninos surrupiavam o doce de quituteiras, que gritavam: “Pede, moleque, pede!” Imagine a cena: nas ruas do Brasil colonial, quituteiras vendem uma iguaria feita de rapadura e amendoim.',
         ingredients: ['1/2 kg de amendoim torrado e descascado', '1/2 kg de açúcar', '1 lata de leite condensado', '3 colheres de margarina'],

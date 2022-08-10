@@ -7,15 +7,21 @@
     <div class="recipes-list" v-if="recipe">
 
       <ul class="recipe">
-
-        <li v-for="(item, index) in recipe" :key="index">
+        
+        <li v-for="(item, index) in $store.state.recipe" :key="index">
           <h3>{{item.title}}</h3>
           <p>{{shorten(item.description)}}</p>
-          <button class="btn">ver receita</button>
+          <router-link :to="`/recipe/${item.slug}`" @click.native="viewRecipe = !viewRecipe">
+            <button class="btn">ver receita</button>
+          </router-link>
         </li>
 
       </ul>
+    </div>
+    
 
+    <div class="recipe-view">
+      <router-view></router-view>
     </div>
 
     <section class="add-recipes" v-show="isActive">
@@ -72,15 +78,18 @@
 </template>
 
 <script>
+
 export default {
   name: 'TheApp',
   data(){
     return {
       isActive: false,
+      viewRecipe: true,
       ingredientText: '',
       methodText: '',
       newRecipe:{
         title: '',
+        slug: '',
         description: '',
         ingredients: [],
         methods: [],
@@ -104,6 +113,7 @@ export default {
       }
     },
     addRecipe(){
+      this.newRecipe.slug = this.newRecipe.title.toLowerCase().replace(/\s/g, '-')
       this.$store.commit('ADD_RECIPE', this.newRecipe);
       this.isActive = false;
     }
