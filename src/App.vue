@@ -74,7 +74,7 @@ export default {
   box-sizing: border-box;
 }
 
-body, h1, h2, p{
+body, h1, h2, p, ul{
   margin: 0px;
   padding: 0px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -82,6 +82,10 @@ body, h1, h2, p{
 
 body{
   min-height: 100vh;
+}
+
+ul{
+  list-style: none;
 }
 
 .btn{
@@ -126,6 +130,30 @@ body{
 
   .add-btn{
     margin: 1rem 0;
+  }
+
+  .recipes-list{
+    max-width: 800px;
+
+    .recipe{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      @media (max-width:768px){
+        grid-template-columns: 1fr;
+        margin: 1rem;
+      }
+
+      li{
+        background-color: #fff;
+        padding: 1rem;
+        border-radius: 3px;
+
+        p{
+          margin-bottom: 1rem;
+        }
+      }
+    }
   }
 
   .add-recipes{
