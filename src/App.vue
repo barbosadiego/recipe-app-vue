@@ -10,7 +10,7 @@
 
         <li v-for="(item, index) in recipe" :key="index">
           <h3>{{item.title}}</h3>
-          <p>{{item.description}}</p>
+          <p>{{shorten(item.description)}}</p>
           <button class="btn">ver receita</button>
         </li>
 
@@ -60,10 +60,15 @@ export default {
       isActive: false,
     }
   },
+  methods:{
+    shorten(text){
+      return `${text.slice(0,75)}...`
+    }
+  },
   computed:{ 
     recipe(){
       return this.$store.state.recipe
-    }
+    },
   }
 }
 </script>
