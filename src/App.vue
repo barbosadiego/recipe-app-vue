@@ -196,9 +196,13 @@ ul{
         background-color: #fff;
         padding: 1rem;
         border-radius: 3px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
 
         p{
           margin-bottom: 1rem;
+          flex: 1;
         }
       }
     }
