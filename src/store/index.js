@@ -18,6 +18,9 @@ export default new Vuex.Store({
   getters: {
   },
   mutations: {
+    ADD_RECIPE(state, payload){
+      state.recipe.push(payload)
+    }
   },
   actions: {
   },
