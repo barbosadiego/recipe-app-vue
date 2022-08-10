@@ -25,26 +25,45 @@
       <form class="form">
 
         <label for="title">Título</label>
-        <input type="text" name="title" id="title">
+        <input type="text" name="title" id="title" v-model="newRecipe.title">
 
-        <label for="desc">Descrição</label>
-        <textarea name="desc" id="desc" cols="30" rows="5"></textarea>
+        <label for="description">Descrição</label>
+        <textarea name="description" id="description" cols="30" rows="5" 
+          v-model="newRecipe.description"
+        ></textarea>
 
         <label for="ingredients">Ingredientes</label>
-        <input type="text" name="ingredients" id="ingredients">
+        <input type="text" name="ingredients" id="ingredients" 
+          v-model="ingredientText"
+        >
 
-        <button class="btn" @click.prevent="">Adicionar Ingrediente</button>
-
-        <label for="method">Instruções</label>
-        <textarea name="method" id="method" cols="30" rows="5"></textarea>
-
-        <button class="btn" @click.prevent="">Adicionar instrução</button>
-
-        <div class="buttons">
-          <button class="btn" @click.prevent="">Adicionar Receita</button>
-          <button class="btn" @click.prevent="isActive = false">Fechar</button>
+        <div class="ingredients-list" v-if="newRecipe.ingredients">
+          <ul>
+            <li v-for="item, i in newRecipe.ingredients" :key="i">
+              {{`${i + 1} - ${item}`}}
+            </li>
+          </ul>
         </div>
 
+        <button class="btn" @click.prevent="addIngredient">Adicionar Ingrediente</button>
+
+        <label for="method">Instruções</label>
+        <textarea name="method" id="method" cols="30" rows="5" v-model="methodText"></textarea>
+
+        <div class="methods-list" v-if="newRecipe.methods">
+          <ul>
+            <li v-for="item, i in newRecipe.methods" :key="i">
+              {{`${i + 1} - ${item}`}}
+            </li>
+          </ul>
+        </div>
+
+        <button class="btn" @click.prevent="addMethod">Adicionar instrução</button>
+
+        <div class="buttons">
+          <button class="btn" @click.prevent="addRecipe">Adicionar Receita</button>
+          <button class="btn" @click.prevent="isActive = false">Fechar</button>
+        </div>
       </form>
 
     </section>
@@ -58,11 +77,35 @@ export default {
   data(){
     return {
       isActive: false,
+      ingredientText: '',
+      methodText: '',
+      newRecipe:{
+        title: '',
+        description: '',
+        ingredients: [],
+        methods: [],
+      }
     }
   },
   methods:{
     shorten(text){
       return `${text.slice(0,75)}...`
+    },
+    addIngredient(){
+      if(this.ingredientText.length){
+        this.newRecipe.ingredients.push(this.ingredientText);
+        this.ingredientText = '';
+      }
+    },
+    addMethod(){
+      if(this.methodText.length){
+        this.newRecipe.methods.push(this.methodText);
+        this.methodText = '';
+      }
+    },
+    addRecipe(){
+      this.$store.commit('ADD_RECIPE', this.newRecipe);
+      this.isActive = false;
     }
   },
   computed:{ 
