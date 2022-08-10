@@ -4,6 +4,20 @@
     <h1>Receitas</h1>
     <button @click="isActive = !isActive" class="add-btn btn">Adicionar receita</button>
 
+    <div class="recipes-list" v-if="recipe">
+
+      <ul class="recipe">
+
+        <li v-for="(item, index) in recipe" :key="index">
+          <h3>{{item.title}}</h3>
+          <p>{{item.description}}</p>
+          <button class="btn">ver receita</button>
+        </li>
+
+      </ul>
+
+    </div>
+
     <section class="add-recipes" v-show="isActive">
 
       <h2>Adicionar nova receita</h2>
@@ -46,8 +60,10 @@ export default {
       isActive: false,
     }
   },
-  methods:{
-    
+  computed:{ 
+    recipe(){
+      return this.$store.state.recipe
+    }
   }
 }
 </script>
