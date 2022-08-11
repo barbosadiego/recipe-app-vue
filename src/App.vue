@@ -23,7 +23,7 @@
       <RecipePage />
     </router-view>
 
-    <section class="add-recipes" v-show="isActive">
+    <section class="add-recipes" v-if="isActive">
 
       <h2>Adicionar nova receita</h2>
 
@@ -101,7 +101,7 @@ export default {
   },
   methods:{
     shorten(text){
-      return `${text.slice(0,75)}...`
+      return text.length > 75 ? `${text.slice(0,75)}...` : text
     },
     addIngredient(){
       if(this.ingredientText.length){
@@ -235,6 +235,7 @@ a{
       gap: 1rem;
       @media (max-width:768px){
         grid-template-columns: 1fr;
+        justify-items: stretch;
         margin: 1rem;
       }
 
@@ -245,6 +246,7 @@ a{
         display: flex;
         flex-direction: column;
         align-items: flex-start;
+        width: 100%;
 
         p{
           margin-bottom: 1rem;
@@ -261,11 +263,13 @@ a{
     background-color: #fff;
     padding: 1rem;
     box-shadow: 0 0 0 1000px #00000080;
-    position: absolute;
-    z-index: 10;
+    position: fixed;
+    overflow-y: scroll;
+    z-index: 20;
     border-radius: 3px;
-    margin: 1rem;
+    top: 1rem;
     @media (max-width:768px) {
+      height: 95%;
       max-width: 90%;
     }
 

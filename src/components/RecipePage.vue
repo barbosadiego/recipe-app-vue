@@ -55,6 +55,7 @@ export default {
   justify-content: center;
 
   h1 {
+    padding-top: 0px;
     margin-bottom: 1rem;
   }
 
@@ -69,16 +70,19 @@ export default {
   }
 
   .recipe-info{
+    position: fixed;
+    overflow-y: auto;
+    top: 1rem;
     padding: 1rem;
-    margin-top: 2rem;
     border-radius: 3px;
     width: 600px;
     background-color: #fff;
     box-shadow: 0 0 0 1000px rgba($color: #000000, $alpha: 0.5);
-    z-index: 10;
+    z-index: 20;
     @media (max-width: 768px) {
       top: 1rem;
-      max-width: 90%;
+      width: 90%;
+      min-height: 95%;
     }
 
     .close{
