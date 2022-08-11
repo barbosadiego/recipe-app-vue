@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import RecipePage from '@/views/RecipePage.vue'
+import RecipePage from '@/components/RecipePage.vue'
 
 Vue.use(VueRouter)
 

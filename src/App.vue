@@ -11,7 +11,7 @@
         <li v-for="(item, index) in $store.state.recipe" :key="index">
           <h3>{{item.title}}</h3>
           <p>{{shorten(item.description)}}</p>
-          <router-link :to="`/recipe/${item.slug}`" @click.native="viewRecipe = !viewRecipe">
+          <router-link :to="`/recipe/${item.slug}`" @click.native="viewRecipe = true">
             <button class="btn">ver receita</button>
           </router-link>
         </li>
@@ -19,7 +19,9 @@
       </ul>
     </div>
     
-    <router-view v-if="viewRecipe"></router-view>
+    <router-view v-if="viewRecipe">
+      <RecipePage />
+    </router-view>
 
     <section class="add-recipes" v-show="isActive">
 
@@ -75,9 +77,12 @@
 </template>
 
 <script>
-
+import RecipePage from '@/components/RecipePage.vue'
 export default {
   name: 'TheApp',
+  components:{
+    RecipePage,
+  },
   data(){
     return {
       isActive: false,
@@ -110,9 +115,19 @@ export default {
       }
     },
     addRecipe(){
-      this.newRecipe.slug = this.newRecipe.title.toLowerCase().replace(/\s/g, '-')
+      this.newRecipe.slug = this.newRecipe.title.normalize('NFD').replace(/[^a-zA-Z\s]/g, "").toLowerCase().replace(/\s/g, '-')
       this.$store.commit('ADD_RECIPE', this.newRecipe);
       this.isActive = false;
+      this.clearRecipe();
+    },
+    clearRecipe(){
+      this.newRecipe = {
+        title: '',
+        slug: '',
+        description: '',
+        ingredients: [],
+        methods: [],
+      }
     }
   },
   computed:{ 
@@ -141,6 +156,10 @@ body{
 
 ul{
   list-style: none;
+}
+
+a{
+  text-decoration: none;
 }
 
 .btn{
