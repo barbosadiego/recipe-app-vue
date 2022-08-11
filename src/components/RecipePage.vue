@@ -26,7 +26,6 @@
           </li>
         </ul>
       </div>
-
     </div>
 
   </section>
@@ -43,9 +42,6 @@ export default {
       );
     },
   },
-  methods: {
-    
-    },
 };
 </script>
 
@@ -98,6 +94,5 @@ export default {
       border-radius: 3px;
     }
   }
-
 }
 </style>

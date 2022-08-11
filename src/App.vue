@@ -86,7 +86,7 @@ export default {
   data(){
     return {
       isActive: false,
-      viewRecipe: true,
+      viewRecipe: false,
       ingredientText: '',
       methodText: '',
       newRecipe:{
@@ -95,7 +95,8 @@ export default {
         description: '',
         ingredients: [],
         methods: [],
-      }
+      },
+      recipeObj: [],
     }
   },
   methods:{
@@ -123,7 +124,7 @@ export default {
       ;
       if(this.newRecipe.slug){
         this.$store.commit('ADD_RECIPE', this.newRecipe);
-        this.setRecipes(this.$store.state.recipe);
+        this.setRecipes();
         this.isActive = false;
         this.clearRecipe();
       } else {
@@ -140,16 +141,19 @@ export default {
       }
     },
     getRecipes(){
-      return JSON.parse(localStorage.getItem('recipes')) ?? {};
+      return JSON.parse(localStorage.getItem('recipes')) ?? [];
     },
-    setRecipes(recipe){
-      return localStorage.setItem('recipes', JSON.stringify(recipe));
+    setRecipes(){
+      return localStorage.setItem('recipes', JSON.stringify(this.recipe));
     },
   },
   computed:{ 
     recipe(){
       return this.$store.state.recipe
     },
+  },
+  created(){
+    this.$store.commit('START')
   }
 }
 </script>
