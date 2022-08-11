@@ -8,7 +8,7 @@
 
       <ul class="recipe">
         
-        <li v-for="(item, index) in $store.state.recipe" :key="index">
+        <li v-for="(item, index) in recipe" :key="index">
           <h3>{{item.title}}</h3>
           <p>{{shorten(item.description)}}</p>
           <router-link :to="`/recipe/${item.slug}`" @click.native="viewRecipe = true">
@@ -115,10 +115,20 @@ export default {
       }
     },
     addRecipe(){
-      this.newRecipe.slug = this.newRecipe.title.normalize('NFD').replace(/[^a-zA-Z\s]/g, "").toLowerCase().replace(/\s/g, '-')
-      this.$store.commit('ADD_RECIPE', this.newRecipe);
-      this.isActive = false;
-      this.clearRecipe();
+      this.newRecipe.slug = this.newRecipe.title
+        .normalize('NFD')
+        .replace(/[^a-zA-Z\s]/g, "")
+        .toLowerCase()
+        .replace(/\s/g, '-')
+      ;
+      if(this.newRecipe.slug){
+        this.$store.commit('ADD_RECIPE', this.newRecipe);
+        this.setRecipes(this.$store.state.recipe);
+        this.isActive = false;
+        this.clearRecipe();
+      } else {
+        window.alert('Por favor informe o título da receita.')
+      }
     },
     clearRecipe(){
       this.newRecipe = {
@@ -128,7 +138,13 @@ export default {
         ingredients: [],
         methods: [],
       }
-    }
+    },
+    getRecipes(){
+      return JSON.parse(localStorage.getItem('recipes')) ?? {};
+    },
+    setRecipes(recipe){
+      return localStorage.setItem('recipes', JSON.stringify(recipe));
+    },
   },
   computed:{ 
     recipe(){
