@@ -19,10 +19,7 @@
       </ul>
     </div>
     
-
-    <div class="recipe-view">
-      <router-view></router-view>
-    </div>
+    <router-view v-if="viewRecipe"></router-view>
 
     <section class="add-recipes" v-show="isActive">
 

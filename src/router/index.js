@@ -7,10 +7,6 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/recipe',
-    name: 'recipe',
-  },
-  {
     path: '/recipe/:slug',
     name: 'recipe-page',
     component: RecipePage,
