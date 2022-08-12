@@ -3,22 +3,9 @@
 
     <h1>Receitas</h1>
     <button @click="isActive = !isActive" class="add-btn btn">Adicionar receita</button>
-
-    <div class="recipes-list" v-if="recipe">
-
-      <ul class="recipe">
-        
-        <li v-for="(item, index) in recipe" :key="index">
-          <h3>{{item.title}}</h3>
-          <p>{{shorten(item.description)}}</p>
-          <router-link :to="`/recipe/${item.slug}`" @click.native="viewRecipe = true">
-            <button class="btn">ver receita</button>
-          </router-link>
-        </li>
-
-      </ul>
-    </div>
     
+    <RecipeList v-if="recipe" />
+
     <transition>
       <router-view v-if="viewRecipe">
         <RecipePage />
@@ -82,10 +69,13 @@
 
 <script>
 import RecipePage from '@/components/RecipePage.vue'
+import RecipeList from '@/components/RecipeList.vue'
+
 export default {
   name: 'TheApp',
   components:{
     RecipePage,
+    RecipeList,
   },
   data(){
     return {
@@ -103,9 +93,6 @@ export default {
     }
   },
   methods:{
-    shorten(text){
-      return text.length > 75 ? `${text.slice(0,75)}...` : text
-    },
     addIngredient(){
       if(this.ingredientText.length){
         this.newRecipe.ingredients.push(this.ingredientText);
@@ -238,36 +225,6 @@ a{
 
   .add-btn{
     margin: 1rem 0;
-  }
-
-  .recipes-list{
-    max-width: 800px;
-
-    .recipe{
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-      @media (max-width:768px){
-        grid-template-columns: 1fr;
-        justify-items: stretch;
-        margin: 1rem;
-      }
-
-      li{
-        background-color: #fff;
-        padding: 1rem;
-        border-radius: 3px;
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        width: 100%;
-
-        p{
-          margin-bottom: 1rem;
-          flex: 1;
-        }
-      }
-    }
   }
 
   .add-recipes{
