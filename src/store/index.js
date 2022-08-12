@@ -16,7 +16,8 @@ export default new Vuex.Store({
     },
     START(state){
       const data = JSON.parse(localStorage.getItem('recipes'));
-      if(data) state.recipe.push( ...data );
+      console.log(data)
+      if(data) state.recipe.push( ...state.recipe, data );
       else return
     }
   },

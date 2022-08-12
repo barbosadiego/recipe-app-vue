@@ -5,62 +5,11 @@
     <button @click="isActive = !isActive" class="add-btn btn">Adicionar receita</button>
     
     <RecipeList v-if="recipe" />
-
-    <transition>
-      <router-view v-if="viewRecipe">
-        <RecipePage />
-      </router-view>
-    </transition>
    
-    <transition>
+    <transition mode="out-in">
       <section class="add-recipes" v-if="isActive">
-
         <h2>Adicionar nova receita</h2>
-
-        <form class="form">
-
-          <label for="title">Título</label>
-          <input type="text" name="title" id="title" v-model="newRecipe.title">
-
-          <label for="description">Descrição</label>
-          <textarea name="description" id="description" cols="30" rows="5" 
-            v-model="newRecipe.description"
-          ></textarea>
-
-          <label for="ingredients">Ingredientes</label>
-          <input type="text" name="ingredients" id="ingredients" 
-            v-model="ingredientText"
-          >
-
-          <div class="ingredients-list" v-if="newRecipe.ingredients">
-            <ul>
-              <li v-for="item, i in newRecipe.ingredients" :key="i">
-                {{`${i + 1} - ${item}`}}
-              </li>
-            </ul>
-          </div>
-
-          <button class="btn" @click.prevent="addIngredient">Adicionar Ingrediente</button>
-
-          <label for="method">Instruções</label>
-          <textarea name="method" id="method" cols="30" rows="5" v-model="methodText"></textarea>
-
-          <div class="methods-list" v-if="newRecipe.methods">
-            <ul>
-              <li v-for="item, i in newRecipe.methods" :key="i">
-                {{`${i + 1} - ${item}`}}
-              </li>
-            </ul>
-          </div>
-
-          <button class="btn" @click.prevent="addMethod">Adicionar instrução</button>
-
-          <div class="buttons">
-            <button class="btn" @click.prevent="addRecipe">Adicionar Receita</button>
-            <button class="btn" @click.prevent="isActive = false">Fechar</button>
-          </div>
-        </form>
-
+        <AddRecipeForm />
       </section>
     </transition>
 
@@ -68,74 +17,19 @@
 </template>
 
 <script>
-import RecipePage from '@/components/RecipePage.vue'
 import RecipeList from '@/components/RecipeList.vue'
+import AddRecipeForm from '@/components/AddRecipeForm.vue'
 
 export default {
   name: 'TheApp',
   components:{
-    RecipePage,
     RecipeList,
+    AddRecipeForm,
   },
   data(){
     return {
       isActive: false,
-      viewRecipe: false,
-      ingredientText: '',
-      methodText: '',
-      newRecipe:{
-        title: '',
-        slug: '',
-        description: '',
-        ingredients: [],
-        methods: [],
-      },
     }
-  },
-  methods:{
-    addIngredient(){
-      if(this.ingredientText.length){
-        this.newRecipe.ingredients.push(this.ingredientText);
-        this.ingredientText = '';
-      }
-    },
-    addMethod(){
-      if(this.methodText.length){
-        this.newRecipe.methods.push(this.methodText);
-        this.methodText = '';
-      }
-    },
-    addRecipe(){
-      this.newRecipe.slug = this.newRecipe.title
-        .normalize('NFD')
-        .replace(/[^a-zA-Z\s]/g, "")
-        .toLowerCase()
-        .replace(/\s/g, '-')
-      ;
-      if(this.newRecipe.slug){
-        this.$store.commit('ADD_RECIPE', this.newRecipe);
-        this.setRecipes();
-        this.isActive = false;
-        this.clearRecipe();
-      } else {
-        window.alert('Por favor informe o título da receita.')
-      }
-    },
-    clearRecipe(){
-      this.newRecipe = {
-        title: '',
-        slug: '',
-        description: '',
-        ingredients: [],
-        methods: [],
-      }
-    },
-    getRecipes(){
-      return JSON.parse(localStorage.getItem('recipes')) ?? [];
-    },
-    setRecipes(){
-      return localStorage.setItem('recipes', JSON.stringify(this.recipe));
-    },
   },
   computed:{ 
     recipe(){
@@ -243,53 +137,11 @@ a{
       height: 95%;
       max-width: 90%;
     }
+  }
 
-    h2{
-      margin: 1rem 0;
-      padding: 0;
-    }
-
-    .form{
-      display: grid;
-      justify-items: start;
-      gap: 1rem;
-
-      input, 
-      label,
-      textarea{
-        width: 100%;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        outline: none;
-        border: none;
-      }
-
-      label{
-        font-size: 1.1rem;
-      }
-
-      input,
-      textarea{
-        padding: 10px;
-        border: 1px solid #84f;
-        border-radius: 3px;
-      }
-
-      textarea{
-        resize: none;
-      }
-
-      hr{
-        background-color: #84f;
-      }
-
-      .buttons{
-        width: 100%;
-        padding-top: 1rem;
-        display: flex;
-        gap: 1rem;
-        border-top: 1px solid #84f;
-      }
-    }
+  h2{
+    margin: 1rem 0;
+    padding: 0;
   }
 }
 </style>

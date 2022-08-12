@@ -1,33 +1,53 @@
 <template>
+  <section>
 
-  <div class="recipes-list">
+    <div class="recipes-list">
 
-    <ul class="recipe">
+      <ul class="recipe">
 
-      <li v-for="(item, index) in recipe" :key="index">
+        <li v-for="(item, index) in recipe" :key="index">
 
-        <h3>{{ item.title }}</h3>
+          <h3>{{ item.title }}</h3>
 
-        <p>{{ shorten(item.description) }}</p>
+          <p>{{ shorten(item.description) }}</p>
 
-        <router-link
-          :to="`/recipe/${item.slug}`"
-          @click.native="viewRecipe = true"
-        >
-          <button class="btn">ver receita</button>
-        </router-link>
+          <router-link
+            :to="`/recipe/${item.slug}`"
+            @click.native="viewRecipe = true"
+          >
+            <button class="btn">ver receita</button>
+          </router-link>
 
-      </li>
+        </li>
 
-    </ul>
+      </ul>
 
-  </div>
+    </div>
 
+     <transition mode="out-in">
+
+      <router-view v-if="viewRecipe">
+        <RecipePage />
+      </router-view>
+
+    </transition>
+
+  </section>
 </template>
 
 <script>
+import RecipePage from '@/components/RecipePage.vue'
+
 export default {
   name: 'RecipeList',
+  components:{
+    RecipePage,
+  },
+  data(){
+    return{
+      viewRecipe: false,
+    }
+  },
   methods: {
     shorten(text) {
       return text.length > 75 ? `${text.slice(0, 75)}...` : text;
@@ -53,6 +73,7 @@ export default {
       grid-template-columns: 1fr;
       justify-items: stretch;
       margin: 1rem;
+      width: 90%;
     }
 
     li {

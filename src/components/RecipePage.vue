@@ -49,7 +49,6 @@ export default {
 .recipe-modal {
   width: 100%;
   height: 100vh;
-  position: absolute;
   display: flex;
   align-items: flex-start;
   justify-content: center;
