@@ -53,6 +53,8 @@ export default {
   display: flex;
   align-items: flex-start;
   justify-content: center;
+  z-index: 20;
+
 
   h1 {
     padding-top: 0px;
@@ -78,11 +80,10 @@ export default {
     width: 600px;
     background-color: #fff;
     box-shadow: 0 0 0 1000px rgba($color: #000000, $alpha: 0.5);
-    z-index: 20;
     @media (max-width: 768px) {
       top: 1rem;
       width: 90%;
-      min-height: 95%;
+      height: 95%;
     }
 
     .close{
