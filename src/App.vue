@@ -19,59 +19,63 @@
       </ul>
     </div>
     
-    <router-view v-if="viewRecipe">
-      <RecipePage />
-    </router-view>
+    <transition>
+      <router-view v-if="viewRecipe">
+        <RecipePage />
+      </router-view>
+    </transition>
+   
+    <transition>
+      <section class="add-recipes" v-if="isActive">
 
-    <section class="add-recipes" v-if="isActive">
+        <h2>Adicionar nova receita</h2>
 
-      <h2>Adicionar nova receita</h2>
+        <form class="form">
 
-      <form class="form">
+          <label for="title">Título</label>
+          <input type="text" name="title" id="title" v-model="newRecipe.title">
 
-        <label for="title">Título</label>
-        <input type="text" name="title" id="title" v-model="newRecipe.title">
+          <label for="description">Descrição</label>
+          <textarea name="description" id="description" cols="30" rows="5" 
+            v-model="newRecipe.description"
+          ></textarea>
 
-        <label for="description">Descrição</label>
-        <textarea name="description" id="description" cols="30" rows="5" 
-          v-model="newRecipe.description"
-        ></textarea>
+          <label for="ingredients">Ingredientes</label>
+          <input type="text" name="ingredients" id="ingredients" 
+            v-model="ingredientText"
+          >
 
-        <label for="ingredients">Ingredientes</label>
-        <input type="text" name="ingredients" id="ingredients" 
-          v-model="ingredientText"
-        >
+          <div class="ingredients-list" v-if="newRecipe.ingredients">
+            <ul>
+              <li v-for="item, i in newRecipe.ingredients" :key="i">
+                {{`${i + 1} - ${item}`}}
+              </li>
+            </ul>
+          </div>
 
-        <div class="ingredients-list" v-if="newRecipe.ingredients">
-          <ul>
-            <li v-for="item, i in newRecipe.ingredients" :key="i">
-              {{`${i + 1} - ${item}`}}
-            </li>
-          </ul>
-        </div>
+          <button class="btn" @click.prevent="addIngredient">Adicionar Ingrediente</button>
 
-        <button class="btn" @click.prevent="addIngredient">Adicionar Ingrediente</button>
+          <label for="method">Instruções</label>
+          <textarea name="method" id="method" cols="30" rows="5" v-model="methodText"></textarea>
 
-        <label for="method">Instruções</label>
-        <textarea name="method" id="method" cols="30" rows="5" v-model="methodText"></textarea>
+          <div class="methods-list" v-if="newRecipe.methods">
+            <ul>
+              <li v-for="item, i in newRecipe.methods" :key="i">
+                {{`${i + 1} - ${item}`}}
+              </li>
+            </ul>
+          </div>
 
-        <div class="methods-list" v-if="newRecipe.methods">
-          <ul>
-            <li v-for="item, i in newRecipe.methods" :key="i">
-              {{`${i + 1} - ${item}`}}
-            </li>
-          </ul>
-        </div>
+          <button class="btn" @click.prevent="addMethod">Adicionar instrução</button>
 
-        <button class="btn" @click.prevent="addMethod">Adicionar instrução</button>
+          <div class="buttons">
+            <button class="btn" @click.prevent="addRecipe">Adicionar Receita</button>
+            <button class="btn" @click.prevent="isActive = false">Fechar</button>
+          </div>
+        </form>
 
-        <div class="buttons">
-          <button class="btn" @click.prevent="addRecipe">Adicionar Receita</button>
-          <button class="btn" @click.prevent="isActive = false">Fechar</button>
-        </div>
-      </form>
-
-    </section>
+      </section>
+    </transition>
 
   </div>
 </template>
@@ -180,6 +184,17 @@ ul{
 
 a{
   text-decoration: none;
+}
+
+.v-enter,
+.v-leave-to{
+  transform: translate3d(0,-20px,0);
+  opacity: 0;
+}
+
+.v-enter-active,
+.v-leave-active{
+  transition: all .3s;
 }
 
 .btn{
