@@ -100,7 +100,6 @@ export default {
         ingredients: [],
         methods: [],
       },
-      recipeObj: [],
     }
   },
   methods:{
