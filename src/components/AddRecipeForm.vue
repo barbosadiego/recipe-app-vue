@@ -97,18 +97,11 @@ export default {
       ;
       if(this.newRecipe.slug){
         this.$store.commit('ADD_RECIPE', this.newRecipe);
-        this.setRecipes(this.newRecipe);
         this.isActive = false;
         this.clearRecipe();
       } else {
         window.alert('Por favor informe o título da receita.')
       }
-    },
-    getRecipes(){
-      return JSON.parse(localStorage.getItem('recipes')) ?? [];
-    },
-    setRecipes(recipe){
-      return localStorage.setItem('recipes', JSON.stringify(recipe));
     },
     clearRecipe(){
       this.newRecipe = {

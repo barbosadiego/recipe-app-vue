@@ -12,13 +12,20 @@ export default new Vuex.Store({
   mutations: {
     ADD_RECIPE(state, payload){
       state.recipe.push(payload);
-      localStorage.setItem('recipes', JSON.stringify(this.recipe));
+      console.log(payload)
+      localStorage.setItem('recipes', JSON.stringify(state.recipe));
     },
     START(state){
       const data = JSON.parse(localStorage.getItem('recipes'));
       console.log(data)
-      if(data) state.recipe.push( ...state.recipe, data );
-      else return
+      if(data) {
+        try{
+          state.recipe.push( ...data );
+        } catch(e){
+          localStorage.removeItem('recipes');
+          console.log(e);
+        }
+      } 
     }
   },
   actions: {
