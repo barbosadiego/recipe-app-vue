@@ -2,11 +2,11 @@
   <div id="app">
 
     <h1>Receitas</h1>
-    <button @click="isActive = !isActive" class="add-btn btn">Adicionar receita</button>
+    <button @click="show" class="add-btn btn">Adicionar receita</button>
     
     <RecipeList v-if="recipe" />
    
-    <transition mode="out-in">
+    <transition>
       <section class="add-recipes" v-if="isActive">
         <h2>Adicionar nova receita</h2>
         <AddRecipeForm />
@@ -26,18 +26,21 @@ export default {
     RecipeList,
     AddRecipeForm,
   },
-  data(){
-    return {
-      isActive: false,
+  methods:{
+    show(){
+      this.$store.commit('SHOW_ADD_RECIPE_FORM')
     }
   },
   computed:{ 
     recipe(){
       return this.$store.state.recipe
     },
+    isActive(){
+      return this.$store.state.isActive
+    }
   },
   created(){
-    this.$store.commit('START')
+    this.$store.commit('START');
   }
 }
 </script>

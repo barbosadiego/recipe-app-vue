@@ -53,7 +53,7 @@
 
     <div class="buttons">
       <button class="btn" @click.prevent="addRecipe">Adicionar Receita</button>
-      <button class="btn" @click.prevent="isActive = false">Fechar</button>
+      <button class="btn" @click.prevent="$store.state.isActive = false">Fechar</button>
     </div>
   </form>
 </template>
@@ -63,7 +63,6 @@ export default {
   name: 'AddRecipeForm',
   data(){
     return{
-      isActive: false,
       ingredientText: '',
       methodText: '',
       newRecipe:{
@@ -97,7 +96,7 @@ export default {
       ;
       if(this.newRecipe.slug){
         this.$store.commit('ADD_RECIPE', this.newRecipe);
-        this.isActive = false;
+        this.$store.state.isActive = false;
         this.clearRecipe();
       } else {
         window.alert('Por favor informe o título da receita.')

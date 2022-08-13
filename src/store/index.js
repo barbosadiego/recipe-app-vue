@@ -5,7 +5,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    recipe:[]
+    recipe:[],
+    isActive: false,
   },
   getters: {
   },
@@ -26,6 +27,10 @@ export default new Vuex.Store({
           console.log(e);
         }
       } 
+    },
+    SHOW_ADD_RECIPE_FORM(state){
+      state.isActive = !state.isActive;
+      console.log(state.isActive)
     }
   },
   actions: {
