@@ -29,7 +29,6 @@
     </div>
 
   </section>
-
 </template>
 
 <script>
@@ -48,7 +47,6 @@ export default {
 <style lang="scss" scoped>
 .recipe-modal {
   width: 100%;
-  height: 100vh;
   display: flex;
   align-items: flex-start;
   justify-content: center;
@@ -57,7 +55,8 @@ export default {
 
   h1 {
     padding-top: 0px;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
+    font-size: 2rem;
   }
 
   h2 {
