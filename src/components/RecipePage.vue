@@ -47,11 +47,15 @@ export default {
 <style lang="scss" scoped>
 .recipe-modal {
   width: 100%;
+  height: 95vh;
   display: flex;
   align-items: flex-start;
   justify-content: center;
   z-index: 20;
-
+  position: fixed;
+  top: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
 
   h1 {
     padding-top: 0px;
@@ -70,18 +74,16 @@ export default {
   }
 
   .recipe-info{
-    position: fixed;
     overflow-y: auto;
-    top: 1rem;
     padding: 1rem;
     border-radius: 3px;
     width: 600px;
+    height: 95vh;
     background-color: #fff;
     box-shadow: 0 0 0 1000px rgba($color: #000000, $alpha: 0.5);
     @media (max-width: 768px) {
       top: 1rem;
       width: 90%;
-      height: 95%;
     }
 
     .close{

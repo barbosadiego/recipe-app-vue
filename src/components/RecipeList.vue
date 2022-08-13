@@ -1,35 +1,27 @@
 <template>
-  <section>
+  <section class="recipes-list">
 
-    <div class="recipes-list">
+    <ul class="recipe">
 
-      <ul class="recipe">
+      <li v-for="(item, index) in recipe" :key="index">
 
-        <li v-for="(item, index) in recipe" :key="index">
+        <h3>{{ item.title }}</h3>
 
-          <h3>{{ item.title }}</h3>
+        <p>{{ shorten(item.description) }}</p>
 
-          <p>{{ shorten(item.description) }}</p>
+        <router-link :to="`/recipe/${item.slug}`"
+          @click.native="viewRecipe = true">
+          <button class="btn">ver receita</button>
+        </router-link>
 
-          <router-link
-            :to="`/recipe/${item.slug}`"
-            @click.native="viewRecipe = true"
-          >
-            <button class="btn">ver receita</button>
-          </router-link>
+      </li>
 
-        </li>
+    </ul>
 
-      </ul>
-
-    </div>
-
-     <transition mode="out-in">
-
+    <transition>
       <router-view v-if="viewRecipe">
         <RecipePage />
       </router-view>
-
     </transition>
 
   </section>
@@ -64,6 +56,7 @@ export default {
 <style lang="scss" scoped>
 .recipes-list {
   max-width: 800px;
+  padding-bottom: 50px;
 
   .recipe {
     display: grid;
